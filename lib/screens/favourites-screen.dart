@@ -49,21 +49,49 @@ class FavouritesScreenState extends State<FavouritesScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                  itemCount: favs == null ? 0 : favs.length,
-                  itemBuilder: (context, i) {
-                    return FlatButton(
-                      child: MovieBox(favs, i, true),
-                      padding: const EdgeInsets.all(0.0),
-                      onPressed: () {
-                        onBoxClick(favs[i]);
-                      },
-                    );
-                  }),
-            )
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (favs != null && favs.length == 0) ...[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'No Favourites Yet',
+                    style: TextStyle(
+                      fontFamily: 'Arvo',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'You can add favourites by clicking on the movie poster',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Arvo',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              )
+            ] else ...<Widget>[
+              Expanded(
+                child: ListView.builder(
+                    itemCount: favs == null ? 0 : favs.length,
+                    itemBuilder: (context, i) {
+                      return FlatButton(
+                        child: MovieBox(favs, i, true),
+                        padding: const EdgeInsets.all(0.0),
+                        onPressed: () {
+                          onBoxClick(favs[i]);
+                        },
+                      );
+                    }),
+              )
+            ]
           ],
         ),
       ),
